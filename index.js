@@ -48,7 +48,7 @@ bot.on("message", async message => {
     .addField("Bot info", "!botinfo")
     .addField("Report User", "!report @user some reason")
     .addField("Random Quote", "!getquote");
-
+    console.log("Listing Commands");
     return message.channel.send(serverembed);
   }
 
