@@ -1,0 +1,3 @@
+NDc0NjI2NjM1MzAwMjA4NjUw.DkTOfQ.Fi60KPj-boV9_3UXUQxqqPpnzlI
+474626635300208650
+https://discordapp.com/oauth2/authorize?client_id=474626635300208650&scope=bot
