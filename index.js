@@ -1,12 +1,14 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
+const Youtube = require("simple-youtube-api");
 const YTDL = require("ytdl-core");
 
 const bot = new Discord.Client({disableEveryone: true});
 
+const youtube = new Youtube('AIzaSyCVt6FYqOyevsswsP3GXlcgnjlYLvuPk-8');
+
 function play(connection, message) {
   var server = servers[message.guild.id];
-  bot.user.setActivity("Music", {type: "PLAYING"});
   server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
 
   server.queue.shift();
@@ -75,8 +77,47 @@ bot.on("message", async message => {
     if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
       play(connection, message);
     });
+    bot.user.setActivity("Music", {type: "PLAYING"});
 
     return;
+  }
+
+  if((messageArray[0] + " " + messageArray[1]).toLowerCase() === "alexa play" && messageArray[2]) {
+
+    if(!message.member.voiceChannel) {
+      message.channel.sendMessage("You must be in a voice channel");
+      return;
+    }
+    var searchArray = messageArray.splice(2);
+    console.log(searchArray.join(" "));
+    var youtubeSearch = searchArray.join(" ");
+    try {
+      var searchResults = await youtube.searchVideos(youtubeSearch, 1);
+      var video = await youtube.getVideoByID(searchResults[0].id);
+
+    } catch (error) {
+      console.log(error);
+      return message.channel.send("I couldn't obtain any search results");
+    }
+    
+    var youtubeURL = "https://www.youtube.com/watch?v=" + searchResults[0].id;
+
+    if(!servers[message.guild.id]) servers[message.guild.id] = {
+      queue: []
+    }
+
+    var server = servers[message.guild.id];
+
+    server.queue.push(youtubeURL);
+
+    if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+      play(connection, message);
+    });
+    
+    bot.user.setActivity(video.raw.snippet.title, {type: "PLAYING"});
+
+    
+    return console.log(video.raw.snippet.title);;
   }
 
   if(cmd === `${prefix}skip`) {

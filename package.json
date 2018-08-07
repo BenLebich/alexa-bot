@@ -13,6 +13,7 @@
     "discord.js": "^11.3.2",
     "googleapis": "^27.0.0",
     "opusscript": "0.0.6",
+    "simple-youtube-api": "^5.0.2",
     "ytdl-core": "^0.23.0"
   }
 }
