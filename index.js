@@ -116,7 +116,7 @@ bot.on("message", async message => {
     
     bot.user.setActivity(video.raw.snippet.title, {type: "PLAYING"});
 
-    
+    console.log(video);
     return console.log(video.raw.snippet.title);;
   }
 
