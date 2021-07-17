@@ -1,6 +1,5 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
-const Youtube = require("simple-youtube-api");
 const yts = require("yt-search");
 const YTDL = require("ytdl-core");
 require('dotenv').config();
