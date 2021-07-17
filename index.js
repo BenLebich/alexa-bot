@@ -1,11 +1,12 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 const Youtube = require("simple-youtube-api");
+const yts = require("yt-search");
 const YTDL = require("ytdl-core");
 
 const bot = new Discord.Client({disableEveryone: true});
 
-const youtube = new Youtube('AIzaSyCVt6FYqOyevsswsP3GXlcgnjlYLvuPk-8');
+const youtube = new Youtube('AIzaSyC5Y4nHrYx20AJRto77wGJGcgZTR3UXyEQ');
 
 function play(connection, message) {
   var server = servers[message.guild.id];
@@ -83,7 +84,6 @@ bot.on("message", async message => {
   }
 
   if((messageArray[0] + " " + messageArray[1]).toLowerCase() === "alexa play" && messageArray[2]) {
-
     if(!message.member.voiceChannel) {
       message.channel.sendMessage("You must be in a voice channel");
       return;
@@ -92,15 +92,14 @@ bot.on("message", async message => {
     console.log(searchArray.join(" "));
     var youtubeSearch = searchArray.join(" ");
     try {
-      var searchResults = await youtube.searchVideos(youtubeSearch, 1);
-      var video = await youtube.getVideoByID(searchResults[0].id);
-
+      const r = await yts( youtubeSearch )
+      var video = r.videos[0];
     } catch (error) {
       console.log(error);
       return message.channel.send("I couldn't obtain any search results");
     }
     
-    var youtubeURL = "https://www.youtube.com/watch?v=" + searchResults[0].id;
+    var youtubeURL = video.url;
 
     if(!servers[message.guild.id]) servers[message.guild.id] = {
       queue: []
@@ -114,10 +113,9 @@ bot.on("message", async message => {
       play(connection, message);
     });
     
-    bot.user.setActivity(video.raw.snippet.title, {type: "PLAYING"});
+    bot.user.setActivity(video.title, {type: "PLAYING"});
 
-    console.log(video);
-    return console.log(video.raw.snippet.title);;
+    return console.log(video.title);;
   }
 
   if(cmd === `${prefix}skip`) {
