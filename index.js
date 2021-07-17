@@ -22,7 +22,7 @@ var servers = {};
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
-  bot.user.setActivity("\"Ben's B****\"", {type: "Being"});
+  bot.user.setActivity("\"Ben's B****\"", {type: "CUSTOM_STATUS"});
 });
 
 bot.on("message", async message => {
@@ -77,6 +77,7 @@ bot.on("message", async message => {
       play(connection, message);
     });
     //bot.user.setActivity("Music", {type: "PLAYING"});
+    bot.user.setActivity("\"Ben's B****\"", {type: "CUSTOM_STATUS"});
 
     return;
   }
@@ -112,6 +113,7 @@ bot.on("message", async message => {
     });
     
     //bot.user.setActivity(video.title, {type: "PLAYING"});
+    bot.user.setActivity("\"Ben's B****\"", {type: "CUSTOM_STATUS"});
 
     return console.log(video.title);;
   }
@@ -131,6 +133,7 @@ bot.on("message", async message => {
 
     if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect()
     //bot.user.setActivity("\"Nothing\"", {type: "PLAYING"});
+    bot.user.setActivity("\"Ben's B****\"", {type: "CUSTOM_STATUS"});
     return;
   }
 
