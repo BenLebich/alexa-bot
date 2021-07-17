@@ -22,7 +22,7 @@ var servers = {};
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online!`);
-  bot.user.setActivity("\"Nothing\"", {type: "PLAYING"});
+  bot.user.setActivity("\"Ben's B****\"", {type: "Being"});
 });
 
 bot.on("message", async message => {
@@ -76,7 +76,7 @@ bot.on("message", async message => {
     if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
       play(connection, message);
     });
-    bot.user.setActivity("Music", {type: "PLAYING"});
+    //bot.user.setActivity("Music", {type: "PLAYING"});
 
     return;
   }
@@ -111,7 +111,7 @@ bot.on("message", async message => {
       play(connection, message);
     });
     
-    bot.user.setActivity(video.title, {type: "PLAYING"});
+    //bot.user.setActivity(video.title, {type: "PLAYING"});
 
     return console.log(video.title);;
   }
@@ -130,7 +130,7 @@ bot.on("message", async message => {
     var server = servers[message.guild.id];
 
     if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect()
-    bot.user.setActivity("\"Nothing\"", {type: "PLAYING"});
+    //bot.user.setActivity("\"Nothing\"", {type: "PLAYING"});
     return;
   }
 
