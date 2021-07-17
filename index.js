@@ -3,10 +3,9 @@ const Discord = require("discord.js");
 const Youtube = require("simple-youtube-api");
 const yts = require("yt-search");
 const YTDL = require("ytdl-core");
+require('dotenv').config();
 
 const bot = new Discord.Client({disableEveryone: true});
-
-const youtube = new Youtube('AIzaSyC5Y4nHrYx20AJRto77wGJGcgZTR3UXyEQ');
 
 function play(connection, message) {
   var server = servers[message.guild.id];
@@ -232,5 +231,4 @@ bot.on("message", async message => {
   }
 
 });
-
-bot.login(botconfig.token);
+bot.login(process.env.DISCORD_TOKEN);
